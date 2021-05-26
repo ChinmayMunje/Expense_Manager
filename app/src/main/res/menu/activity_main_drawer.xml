@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_list_alt_24"
+            android:title="Transaction" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_baseline_category_24"
+            android:title="Category" />
+        <item
+            android:id="@+id/nav_rucurring"
+            android:icon="@drawable/ic_baseline_autorenew_24"
+            android:title="Recurring" />
+        <item
+            android:id="@+id/nav_trash"
+            android:icon="@drawable/ic_baseline_delete_outline_24"
+            android:title="Trash" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="Sign Out" />
+
+    </group>
+</menu>
