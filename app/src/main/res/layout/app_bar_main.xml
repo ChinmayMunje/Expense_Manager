@@ -21,27 +21,12 @@
 
     <include layout="@layout/content_main" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/addTransaction"
-            android:layout_margin="20dp"
-            android:background="@drawable/rounded_background"
-            android:drawableLeft="@drawable/ic_baseline_add_24"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:text="Add Transaction"
-            android:layout_alignParentRight="true" />
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        >-->
 
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
