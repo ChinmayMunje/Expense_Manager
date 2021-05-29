@@ -48,14 +48,14 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
         public ImageView imageView;
         public TextView textView;
         public TextView textView2;
-        public LinearLayout linearLayout;
+        public RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imageView = (ImageView) itemView.findViewById(R.id.expenseIcon);
             this.textView = (TextView) itemView.findViewById(R.id.expenseitemName);
             this.textView2 = (TextView) itemView.findViewById(R.id.expenseItemAmount);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
         }
     }
 }

@@ -1,34 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:id="@+id/linearLayout"
-    android:orientation="horizontal"
-    android:weightSum="3">
+    android:layout_margin="4dp">
 
-    <ImageView
-        android:id="@+id/expenseIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/expenseitemName"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="Expense"
-        android:textColor="@color/white" />
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/dialog_color">
+        <LinearLayout
+            android:id="@+id/idLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-    <TextView
-        android:id="@+id/expenseItemAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="500"
-        android:textColor="@color/white" />
-</LinearLayout>
+            <ImageView
+                android:id="@+id/expenseIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/expenseitemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="Expense"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/expenseItemAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="500"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:layout_below="@id/idLL"-->
+<!--        android:background="@android:color/darker_gray" />-->
+
+</RelativeLayout>
