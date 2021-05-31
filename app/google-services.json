@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "183825809708",
+    "project_id": "expensemanagerapp-e4eeb",
+    "storage_bucket": "expensemanagerapp-e4eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183825809708:android:ab27edb009dc617002ec89",
+        "android_client_info": {
+          "package_name": "com.applycreditcard.expense_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183825809708-vnh5kjf9kedjno4v2q5kt6p6eff6h5gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP1I2bcc91xklOlGfeOPlJX3Z2YiqtaKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183825809708-vnh5kjf9kedjno4v2q5kt6p6eff6h5gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
