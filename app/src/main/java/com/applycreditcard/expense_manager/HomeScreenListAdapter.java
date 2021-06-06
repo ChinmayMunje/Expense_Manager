@@ -1,25 +1,27 @@
 package com.applycreditcard.expense_manager;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import Model.Data;
 
 public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAdapter.ViewHolder> {
     private HomeScreenListData[] listData;
 
+
     public HomeScreenListAdapter(HomeScreenListData[] listData) {
         this.listData = listData;
     }
+
+
+
 
     @NonNull
     @Override
@@ -58,4 +60,7 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
         }
     }
+
+
 }
+
