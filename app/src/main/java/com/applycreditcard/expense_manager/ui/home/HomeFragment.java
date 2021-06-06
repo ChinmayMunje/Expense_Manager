@@ -3,7 +3,6 @@ package com.applycreditcard.expense_manager.ui.home;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.applycreditcard.expense_manager.Adapter;
 import com.applycreditcard.expense_manager.CustomeAdapter;
 import com.applycreditcard.expense_manager.HomeScreenListAdapter;
 import com.applycreditcard.expense_manager.HomeScreenListData;
@@ -38,9 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +49,7 @@ public class HomeFragment<listData> extends Fragment {
 
     private DatabaseReference incomedata;
    private FirebaseDatabase adapter;
-   private Adapter adapters;
+   private HomeScreenListAdapter adapters;
     private RecyclerView recyclerView;
 //     Button button;
     TextView text,amount;
