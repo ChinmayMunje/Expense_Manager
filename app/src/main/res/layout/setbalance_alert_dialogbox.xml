@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/setLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Your Limit"
+        android:layout_margin="8dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/EtAmount"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setLimit"
+        android:textSize="14sp"
+        android:layout_margin="15dp"
+        android:text="Enter Amount"/>
+
+    <EditText
+        android:id="@+id/setLimitET"
+        android:layout_below="@+id/EtAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        android:textColor="@color/white" />
+    <Button
+        android:padding="10dp"
+        android:id="@+id/idBtnSetLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setLimitET"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_background"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

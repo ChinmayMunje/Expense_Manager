@@ -14,12 +14,31 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.applycreditcard.expense_manager.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Category"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_rucurring"
         android:name="com.applycreditcard.expense_manager.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="Recurring"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_trash"
+        android:name="com.applycreditcard.expense_manager.ui.slideshow.SlideshowFragment"
+        android:label="Trash"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.applycreditcard.expense_manager.ui.slideshow.SlideshowFragment"
+        android:label="Setting"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_signout"
+        android:name="com.applycreditcard.expense_manager.ui.slideshow.SlideshowFragment"
+        android:label="Signout"
+        tools:layout="@layout/fragment_slideshow" />
+
 </navigation>

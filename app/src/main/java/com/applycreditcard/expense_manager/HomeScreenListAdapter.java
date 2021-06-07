@@ -10,40 +10,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import Model.Data;
 
 public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAdapter.ViewHolder> {
-    private HomeScreenListData[] listData;
+    private ArrayList<Data> listData;
 
-
-    public HomeScreenListAdapter(HomeScreenListData[] listData) {
+    public HomeScreenListAdapter(ArrayList<Data> listData) {
         this.listData = listData;
     }
-
-
-
 
     @NonNull
     @Override
     public HomeScreenListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.homescreen_list_item,parent,false);
+        View listItem = layoutInflater.inflate(R.layout.homescreen_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeScreenListAdapter.ViewHolder holder, int position) {
-        final HomeScreenListData homeScreenListData = listData[position];
-        holder.imageView.setImageResource(listData[position].getImage());
-        holder.textView.setText(listData[position].getTitle());
-        holder.textView2.setText(listData[position].getAmount());
-
+        final Data homeScreenListData = listData.get(position);
+        holder.imageView.setImageResource(listData.get(position).getImgid());
+        holder.textView.setText(listData.get(position).getCategory());
+        holder.textView2.setText("₹ " + listData.get(position).getAmount());
+        String date = listData.get(position).getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date testDate = null;
+        try {
+            testDate = sdf.parse(date);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yy");
+        String newFormat = formatter.format(testDate);
+        holder.dateTV.setText(newFormat);
     }
 
     @Override
     public int getItemCount() {
-        return listData.length;
+        return listData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,9 +61,13 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
         public TextView textView;
         public TextView textView2;
         public RelativeLayout relativeLayout;
+        //        private CardView dateCV;
+        private TextView dateTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            //dateCV = itemView.findViewById(R.id.idCVDate);
+            dateTV = itemView.findViewById(R.id.idTVDate);
             this.imageView = (ImageView) itemView.findViewById(R.id.expenseIcon);
             this.textView = (TextView) itemView.findViewById(R.id.expenseitemName);
             this.textView2 = (TextView) itemView.findViewById(R.id.expenseItemAmount);
@@ -61,6 +75,4 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
         }
     }
 
-
 }
-

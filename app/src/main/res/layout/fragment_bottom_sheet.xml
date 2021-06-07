@@ -108,17 +108,36 @@
                 android:layout_weight="2"
                 android:gravity="center">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:background="@drawable/date_display_container"
-                    android:padding="10dp"
-                    android:text="Category :"
-                    android:id="@+id/idTVCategory"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:id="@+id/idIVCategory"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+
+                        android:text="Category :"
+                        android:id="@+id/idTVCategory"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
             </RelativeLayout>
 
         </LinearLayout>

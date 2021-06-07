@@ -2,23 +2,30 @@ package Model;
 
 public class Data {
 
-    private int amount;
+    private String amount;
     private String date;
     private String category;
-    private String id;
+    private String parentCategory;
+    private int imgid;
 
-    public Data(int amount, String date, String category, String id) {
-        this.amount = amount;
-        this.date = date;
-        this.category = category;
-        this.id = id;
+
+    public int getImgid() {
+        return imgid;
     }
 
-    public int getAmount() {
+    public void setImgid(int imgid) {
+        this.imgid = imgid;
+    }
+
+    public Data() {
+    }
+
+
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -38,11 +45,19 @@ public class Data {
         this.category = category;
     }
 
-    public String getId() {
-        return id;
+    public String getParentCategory() {
+        return parentCategory;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setParentCategory(String parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+
+    public Data(String amount, String date, String category, String parentCategory) {
+        this.amount = amount;
+        this.date = date;
+        this.category = category;
+        this.parentCategory = parentCategory;
     }
 }

@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <ProgressBar
+        android:id="@+id/idPBLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/idTVMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/linearTransaction"
         android:layout_width="match_parent"
@@ -15,6 +29,7 @@
         android:weightSum="3">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/idCVBalance"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -42,12 +57,10 @@
                     android:id="@+id/balanceAmount"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-
                     android:layout_below="@+id/balance"
                     android:layout_marginBottom="30dp"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
-                    android:text="4000"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -58,6 +71,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/idCVIncome"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -89,7 +103,6 @@
                     android:layout_marginBottom="30dp"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
-                    android:text="5000"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -100,6 +113,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/idCVExpense"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -131,7 +145,6 @@
                     android:layout_marginBottom="30dp"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
-                    android:text="1000"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -144,11 +157,44 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/setBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearTransaction"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toLeftOf="@id/idTVBalance"
+        android:text="Set Your Limit"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/idTVBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearTransaction"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+        android:text="Text"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearTransaction"
+        android:layout_below="@+id/setBalance"
         tools:listitem="@layout/homescreen_list_item" />
 
 

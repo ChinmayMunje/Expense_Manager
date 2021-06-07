@@ -6,50 +6,73 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
 
+
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="@color/dialog_color">
-        <LinearLayout
-            android:id="@+id/idLL"
+        app:cardBackgroundColor="@color/dialog_color"
+        app:cardCornerRadius="15dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <ImageView
-                android:id="@+id/expenseIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@mipmap/ic_launcher" />
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/expenseitemName"
+                android:id="@+id/idTVDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="Expense"
-                android:textColor="@color/white" />
+                android:layout_margin="3dp"
+                android:padding="5dp"
+                android:text="Date"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/expenseItemAmount"
+            <LinearLayout
+                android:id="@+id/idLL"
+                android:layout_below="@id/idTVDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="500"
-                android:textColor="@color/white" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageView
+                    android:id="@+id/expenseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_clothing" />
+
+                <TextView
+                    android:id="@+id/expenseitemName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="Expense"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/expenseItemAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="500"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="2dp"-->
-<!--        android:layout_below="@id/idLL"-->
-<!--        android:background="@android:color/darker_gray" />-->
+    <!--    <View-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="2dp"-->
+    <!--        android:layout_below="@id/idLL"-->
+    <!--        android:background="@android:color/darker_gray" />-->
 
 </RelativeLayout>
