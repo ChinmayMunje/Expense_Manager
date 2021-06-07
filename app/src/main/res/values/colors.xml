@@ -10,4 +10,12 @@
     <color name="dark_theme">#1F1C26</color>
     <color name="appBar_color">#2C273C</color>
     <color name="dialog_color">#424242</color>
+
+    <color name="colorPrimary">#23A7DB</color>
+    <color name="colorPrimaryDark">#23A7DB</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="transparent">#000000</color>
+    <color name="gradStart">#19AABB</color>
+    <color name="gradstop">#23A7DB</color>
 </resources>
