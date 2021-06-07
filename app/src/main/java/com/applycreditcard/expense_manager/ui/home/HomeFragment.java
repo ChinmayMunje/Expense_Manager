@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         db = FirebaseFirestore.getInstance();
         sharedpreferences = getContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         setAmount = sharedpreferences.getString(AMOUNT_KEY, null);
+
         categoryModels = new ArrayList<>();
         messageTV = root.findViewById(R.id.idTVMessage);
         balanceCV = root.findViewById(R.id.idCVBalance);
@@ -122,6 +123,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         balanceCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 income = 0;
                 balance = 0;
                 expense = 0;
@@ -201,10 +203,15 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                     } else {
                         expense = expense + Double.parseDouble(c.getAmount());
                     }
+                   // double prevBal = balance;
                     balance = income - expense;
-                    balanceTv.setText("₹ " + balance);
-                    incomeTv.setText("₹ " + income);
-                    expenseTv.setText("₹ " + expense);
+                    //if (prevBal == 0) {
+                        balanceTv.setText("₹ " + balance);
+                        incomeTv.setText("₹ " + income);
+                        expenseTv.setText("₹ " + expense);
+                    //}
+
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
