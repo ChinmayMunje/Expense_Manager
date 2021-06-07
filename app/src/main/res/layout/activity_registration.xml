@@ -7,11 +7,6 @@
     android:background="@drawable/grad_bg"
     tools:context=".registration">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
 
         <TextView
             android:id="@+id/register"
@@ -111,24 +106,24 @@
             android:textSize="15dp"
             android:textColor="@color/white"/>
 
-        <EditText
-            android:id="@+id/et_move4"
-            android:layout_below="@id/move4"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/et_bg"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif-light"
-            android:padding="15dp"
-            android:paddingRight="15dp"/>
+<!--        <EditText-->
+<!--            android:id="@+id/et_move4"-->
+<!--            android:layout_below="@id/move4"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="@drawable/et_bg"-->
+<!--            android:textSize="15sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="sans-serif-light"-->
+<!--            android:padding="15dp"-->
+<!--            android:paddingRight="15dp"/>-->
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_below="@id/et_move4"
+            android:layout_below="@id/et_move3"
             android:text="Register"
             android:textSize="20dp"
             android:layout_marginTop="50dp"
@@ -139,21 +134,17 @@
             android:paddingRight="70dp"
             android:layout_centerHorizontal="true"
             android:textAllCaps="false"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        android:layout_below="@+id/btn_register"
+        android:text="Already register ? Login here"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_below="@id/btn_register"
-            android:text="Login"
-            android:textSize="20dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/btn_bg"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif-medium"
-            android:paddingLeft="70dp"
-            android:paddingRight="70dp"
-            android:layout_centerHorizontal="true"
-            android:textAllCaps="false"/>
-    </RelativeLayout>
+
 
 </RelativeLayout>

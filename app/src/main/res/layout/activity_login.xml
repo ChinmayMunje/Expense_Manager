@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/grad_bg">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
 
     <TextView
         android:id="@+id/tv_login"
@@ -88,21 +83,16 @@
         android:layout_centerHorizontal="true"
         android:textAllCaps="false"/>
 
-    <Button
-        android:id="@+id/btn_reg1"
+
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_below="@id/btn_login"
-        android:text="Register"
+        android:layout_height="wrap_content"
+        android:id="@+id/registers"
+        android:layout_below="@+id/btn_login"
+        android:text="Already Login ? register here"
         android:textSize="20dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/btn_bg"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-medium"
-        android:paddingLeft="70dp"
-        android:paddingRight="70dp"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:textAllCaps="false"/>
-    </RelativeLayout>
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>
