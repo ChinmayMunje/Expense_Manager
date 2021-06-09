@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public class login extends AppCompatActivity {
     EditText e5,e6;
     CardView b3;
-    TextView t3;
+    TextView txt;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -31,9 +31,9 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         e5=(EditText)findViewById(R.id.editTextmails);
-        e6=(EditText)findViewById(R.id.editTextTextPasswords);
-        b3=(CardView) findViewById(R.id.firstbuttons);
-        t3=(TextView)findViewById(R.id.login26);
+        e6=(EditText)findViewById(R.id.editTextTextPasswords1);
+        b3=(CardView) findViewById(R.id.firstbutton);
+        txt=(TextView)findViewById(R.id.register);
         firebaseAuth=FirebaseAuth.getInstance();
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class login extends AppCompatActivity {
                 });
             }
         });
-        t3.setOnClickListener(new View.OnClickListener() {
+        txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),registeration.class));

@@ -66,7 +66,7 @@
         android:textSize="20dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/firstbutton"
+        android:id="@+id/firstbuttons"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@id/editTextTextPassword"
@@ -96,7 +96,7 @@
         android:id="@+id/login25"
         android:layout_width="300dp"
         android:layout_height="20dp"
-        android:layout_below="@id/firstbutton"
+        android:layout_below="@id/firstbuttons"
         android:layout_alignLeft="@+id/editTextTextPassword"
         android:layout_alignRight="@+id/editTextTextPassword"
         android:layout_marginLeft="2dp"

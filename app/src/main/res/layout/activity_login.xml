@@ -20,8 +20,8 @@
         android:id="@+id/editTextmails"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@id/editTextTextPasswords"
-        android:layout_alignRight="@id/editTextTextPasswords"
+        android:layout_alignLeft="@id/editTextTextPasswords1"
+        android:layout_alignRight="@id/editTextTextPasswords1"
         android:layout_marginTop="250dp"
 
         android:background="#11000000"
@@ -33,7 +33,7 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/editTextTextPasswords"
+        android:id="@+id/editTextTextPasswords1"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_below="@+id/editTextmails"
@@ -55,10 +55,10 @@
         android:textSize="20dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/firstbuttons"
+        android:id="@+id/firstbutton"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/editTextTextPasswords"
+        android:layout_below="@id/editTextTextPasswords1"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#467AE1"
@@ -82,12 +82,12 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/login26"
+        android:id="@+id/register"
         android:layout_width="300dp"
         android:layout_height="20dp"
-        android:layout_below="@id/firstbuttons"
-        android:layout_alignLeft="@+id/editTextTextPasswords"
-        android:layout_alignRight="@+id/editTextTextPasswords"
+        android:layout_below="@id/firstbutton"
+        android:layout_alignLeft="@+id/editTextTextPasswords1"
+        android:layout_alignRight="@+id/editTextTextPasswords1"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="-5dp"
