@@ -47,7 +47,7 @@ import java.util.Map;
 import Model.CategoryModel;
 import Model.Data;
 
-public class HomeFragment extends Fragment implements CategoryListAdapter.OnclickInterface {
+public class HomeFragment extends Fragment implements CategoryListAdapter.OnclickInterface, HomeScreenListAdapter.OnclickInterface {
     //    final Context context = this;
     // Button button;
     RecyclerView simpleList;
@@ -89,6 +89,8 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         balanceTv = root.findViewById(R.id.balanceAmount);
         expenseTv = root.findViewById(R.id.expenseAmount);
         homeScreenListData = new ArrayList<>();
+
+
         if (setAmount != null) {
             balanceTV.setText("₹ " + setAmount);
         }
@@ -100,7 +102,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
             }
         });
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
-        homeScreenListAdapter = new HomeScreenListAdapter(homeScreenListData);
+        homeScreenListAdapter = new HomeScreenListAdapter(homeScreenListData, this::onExpenseClick);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(homeScreenListAdapter);
@@ -203,12 +205,12 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                     } else {
                         expense = expense + Double.parseDouble(c.getAmount());
                     }
-                   // double prevBal = balance;
+                    // double prevBal = balance;
                     balance = income - expense;
                     //if (prevBal == 0) {
-                        balanceTv.setText("₹ " + balance);
-                        incomeTv.setText("₹ " + income);
-                        expenseTv.setText("₹ " + expense);
+                    balanceTv.setText("₹ " + balance);
+                    incomeTv.setText("₹ " + income);
+                    expenseTv.setText("₹ " + expense);
                     //}
 
 
@@ -384,6 +386,91 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         });
     }
 
+    private void displayUpdateBottomSheet(int position) {
+        String date = homeScreenListData.get(position).getDate();
+        String amount = homeScreenListData.get(position).getAmount();
+        String category = homeScreenListData.get(position).getCategory();
+        int imgId = homeScreenListData.get(position).getImgid();
+
+        final BottomSheetDialog bottomSheetTeachersDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_update, bottomSheetLL);
+        bottomSheetTeachersDialog.setContentView(layout);
+        bottomSheetTeachersDialog.setCancelable(false);
+        bottomSheetTeachersDialog.setCanceledOnTouchOutside(true);
+        bottomSheetTeachersDialog.show();
+        TextView dateTV = layout.findViewById(R.id.idTVDate);
+        categoryIV = layout.findViewById(R.id.idIVCategory);
+        EditText amountEdt = layout.findViewById(R.id.idEdtAmount);
+        categoryTV = layout.findViewById(R.id.idTVCategory);
+        Button updateBtn = layout.findViewById(R.id.idBtnUpdate);
+        Button deleteBtn = layout.findViewById(R.id.idBtnDelete);
+        dateTV.setText(date);
+        amountEdt.setText(amount);
+        categoryTV.setText(category);
+        categoryIV.setImageResource(imgId);
+
+
+        categoryTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryModels.clear();
+                dialog = new Dialog(getContext());
+                View layout = LayoutInflater.from(getContext()).inflate(R.layout.category_alert_dialogbox, null);
+                dialog.setContentView(layout);
+                simpleList = layout.findViewById(R.id.simpleListView);
+
+                categoryModels.add(new CategoryModel(R.drawable.ic_clothing, "Clothing"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_food, "Food"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_gas_pump, "Fuel"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_mobile_recharge, "Recharge"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_lightning, "Electricity"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_health, "Health"));
+                categoryModels.add(new CategoryModel(R.drawable.ic_wallet, "Salary"));
+                categoryListAdapter = new CategoryListAdapter(categoryModels, getContext(), HomeFragment.this::onClick);
+                simpleList.setLayoutManager(new LinearLayoutManager(getContext()));
+                simpleList.setAdapter(categoryListAdapter);
+
+                dialog.show();
+            }
+        });
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //update data here
+                bottomSheetTeachersDialog.dismiss();
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete data here
+                bottomSheetTeachersDialog.dismiss();
+
+            }
+        });
+        dateTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mCalender = Calendar.getInstance();
+                int year = mCalender.get(Calendar.YEAR);
+                int month = mCalender.get(Calendar.MONTH);
+                int dayOfMonth = mCalender.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateTV.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                    }
+                }, year, month, dayOfMonth);
+                datePickerDialog.show();
+
+
+            }
+        });
+    }
+
+
     @Override
     public void onClick(int position) {
         String cate = categoryModels.get(position).getCategoryName();
@@ -392,5 +479,11 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         Drawable drawable = getResources().getDrawable(categoryModels.get(position).getImageUrl());
         categoryTV.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_clothing), null, null, null);
         dialog.dismiss();
+    }
+
+    @Override
+    public void onExpenseClick(int position) {
+        displayUpdateBottomSheet(position);
+
     }
 }

@@ -18,9 +18,11 @@ import Model.Data;
 
 public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAdapter.ViewHolder> {
     private ArrayList<Data> listData;
+    private OnclickInterface onclickInterface;
 
-    public HomeScreenListAdapter(ArrayList<Data> listData) {
+    public HomeScreenListAdapter(ArrayList<Data> listData, OnclickInterface onclickInterface) {
         this.listData = listData;
+        this.onclickInterface = onclickInterface;
     }
 
     @NonNull
@@ -38,6 +40,12 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
         holder.imageView.setImageResource(listData.get(position).getImgid());
         holder.textView.setText(listData.get(position).getCategory());
         holder.textView2.setText("₹ " + listData.get(position).getAmount());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickInterface.onExpenseClick(position);
+            }
+        });
         String date = listData.get(position).getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date testDate = null;
@@ -73,6 +81,9 @@ public class HomeScreenListAdapter extends RecyclerView.Adapter<HomeScreenListAd
             this.textView2 = (TextView) itemView.findViewById(R.id.expenseItemAmount);
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
         }
+    }
+    public interface OnclickInterface {
+        void onExpenseClick(int position);
     }
 
 }
