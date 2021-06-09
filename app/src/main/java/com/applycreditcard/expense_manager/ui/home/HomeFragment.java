@@ -1,8 +1,10 @@
 package com.applycreditcard.expense_manager.ui.home;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.applycreditcard.expense_manager.HomeScreenListAdapter;
+import com.applycreditcard.expense_manager.MainActivity;
 import com.applycreditcard.expense_manager.R;
 import com.applycreditcard.expense_manager.ui.CategoryListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,6 +50,7 @@ import java.util.Map;
 import Model.CategoryModel;
 import Model.Data;
 
+
 public class HomeFragment extends Fragment implements CategoryListAdapter.OnclickInterface {
     //    final Context context = this;
     // Button button;
@@ -60,8 +64,9 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     private ArrayList<Data> homeScreenListData;
     private String date, amount, category;
     private ProgressBar loadingPB;
+    private CardView c1;
     private CardView balanceCV, incomeCV, expenseCV;
-    private TextView incomeTv, expenseTv, balanceTv, categoryTV, messageTV, setBalanceTv, balanceTV;
+    private TextView incomeTv, expenseTv, balanceTv, categoryTV, messageTV, setBalanceTv, balanceTV,catupdate;
     double income = 0, expense = 0, balance = 0;
     Dialog dialog;
     public static final String SHARED_PREFS = "shared_prefs";
@@ -70,6 +75,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     SharedPreferences sharedpreferences;
     String setAmount;
 
+    @SuppressLint("SetTextI18n")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -98,6 +104,12 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                 displayBottomSheet();
             }
         });
+//        c1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                displaycard();
+//            }
+//        });
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         homeScreenListAdapter = new HomeScreenListAdapter(homeScreenListData);
         recyclerView.setHasFixedSize(true);
@@ -125,6 +137,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                 income = 0;
                 balance = 0;
                 expense = 0;
+
                 homeScreenListData.clear();
                 readData();
             }
@@ -156,6 +169,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
             }
         });
 
+
         return root;
     }
 
@@ -164,6 +178,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         db.collection("ExpenseManager").document("userId").collection("userTranscation").orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
                 loadingPB.setVisibility(View.GONE);
                 if (!queryDocumentSnapshots.isEmpty()) {
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
@@ -174,6 +189,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                         homeScreenListAdapter.notifyDataSetChanged();
                     }
                 }
+
                 if (homeScreenListData.size() == 0) {
                     messageTV.setText("Please enter transcations");
                     messageTV.setVisibility(View.VISIBLE);
@@ -198,20 +214,22 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
 
                     if (homeScreenListData.get(i).getParentCategory().equals("Income")) {
                         income = income + Double.parseDouble(c.getAmount());
-                    } else {
+                    } else if (homeScreenListData.get(i).getParentCategory().equals("Expense")){
                         expense = expense + Double.parseDouble(c.getAmount());
                     }
                     balance = income - expense;
                     balanceTv.setText("₹ " + balance);
                     incomeTv.setText("₹ " + income);
                     expenseTv.setText("₹ " + expense);
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loadingPB.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Fail to get data..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Fail to get data..", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -301,6 +319,85 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         });
 
     }
+//    private  void displaycard()
+//    {
+//        final BottomSheetDialog bottomSheetTeachersDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
+//        View layout = LayoutInflater.from(getContext()).inflate(R.layout.update, bottomSheetLL);
+//        bottomSheetTeachersDialog.setContentView(layout);
+//        bottomSheetTeachersDialog.setCancelable(false);
+//        bottomSheetTeachersDialog.setCanceledOnTouchOutside(true);
+//        bottomSheetTeachersDialog.show();
+//        TextView dateTV = layout.findViewById(R.id.idTVupdateDate);
+//        categoryIV = layout.findViewById(R.id.updateCategory);
+//        EditText amountEdt = layout.findViewById(R.id.updateAmount);
+//        catupdate = layout.findViewById(R.id.updateCategory);
+//        Button deleteBtn = layout.findViewById(R.id.idBtndelete);
+//        Button updateBtn = layout.findViewById(R.id.idBtnupdate);
+//
+//
+//        catupdate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                categoryModels.clear();
+//                dialog = new Dialog(getContext());
+//                View layout = LayoutInflater.from(getContext()).inflate(R.layout.category_alert_dialogbox, null);
+//                dialog.setContentView(layout);
+//                simpleList = layout.findViewById(R.id.simpleListView);
+//
+//                categoryModels.add(new CategoryModel(R.drawable.ic_clothing, "Clothing"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_food, "Food"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_gas_pump, "Fuel"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_mobile_recharge, "Recharge"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_lightning, "Electricity"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_health, "Health"));
+//                categoryModels.add(new CategoryModel(R.drawable.ic_wallet, "Salary"));
+//                categoryListAdapter = new CategoryListAdapter(categoryModels, getContext(), HomeFragment.this::onClick);
+//                simpleList.setLayoutManager(new LinearLayoutManager(getContext()));
+//                simpleList.setAdapter(categoryListAdapter);
+//
+//                dialog.show();
+//            }
+//        });
+//
+//        deleteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bottomSheetTeachersDialog.dismiss();
+////                db.collection("userTranscation").removeValue();
+//            }
+//        });
+//
+//        updateBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                amount = amountEdt.getText().toString();
+//                date = dateTV.getText().toString();
+//                category = categoryTV.getText().toString();
+//
+////                Data data=new Data(amount,date,category,"userTranscation");
+////                db.collection("userTranscation").setValue(data);
+//
+//            }
+//        });
+//        dateTV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Calendar mCalender = Calendar.getInstance();
+//                int year = mCalender.get(Calendar.YEAR);
+//                int month = mCalender.get(Calendar.MONTH);
+//                int dayOfMonth = mCalender.get(Calendar.DAY_OF_MONTH);
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        dateTV.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+//                    }
+//                }, year, month, dayOfMonth);
+//                datePickerDialog.show();
+//
+//
+//            }
+//        });
+//    }
 
     private void displayBottomSheet() {
         final BottomSheetDialog bottomSheetTeachersDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);

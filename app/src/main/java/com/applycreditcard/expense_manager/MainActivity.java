@@ -8,20 +8,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -29,6 +34,8 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -56,7 +63,44 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+            navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+                @Override
+                public void onDestinationChanged(@NonNull @NotNull NavController controller, @NonNull @NotNull NavDestination destination, @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
+                    if (destination.getId() == R.id.nav_signout){
+                        logout();
+                    }
+                }
+
+                private void logout() {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent=new Intent(MainActivity.this,login.class);
+                    startActivity(intent);
+                    finish();;
+                }
+            });
+
+    
     }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+//
+//        switch (item.getItemId())
+//        {
+//            case R.id.nav_signout:
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(),login.class));
+//                finish();
+//                break;
+//
+//            case R.id.nav_setting:
+//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//        }
+//        return super.onOptionsItemSelected(item);
+//
+//
+//    }
+
 
     private void requestPermission(){
         Dexter.withActivity(this).withPermissions(
@@ -132,8 +176,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {

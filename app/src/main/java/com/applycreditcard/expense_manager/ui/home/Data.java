@@ -1,25 +1,25 @@
 package com.applycreditcard.expense_manager.ui.home;
 
 public class Data {
-    private  int amount;
+    private  String amount;
     private String category;
     private String date;
 
-    public Data(int amount, String category, String date) {
+    public Data(String amount, String category, String date) {
         this.amount = amount;
         this.category = category;
         this.date = date;
     }
-//    public  Data()
-//    {
-//
-//    }
+    public  Data()
+    {
 
-    public int getAmount() {
+    }
+
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
