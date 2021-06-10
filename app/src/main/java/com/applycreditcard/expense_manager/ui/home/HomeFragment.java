@@ -1,8 +1,11 @@
 package com.applycreditcard.expense_manager.ui.home;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,14 +31,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applycreditcard.expense_manager.HomeScreenListAdapter;
 import com.applycreditcard.expense_manager.R;
 import com.applycreditcard.expense_manager.ui.CategoryListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,13 +69,13 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     private ProgressBar loadingPB;
     private CardView balanceCV, incomeCV, expenseCV;
     private TextView incomeTv, expenseTv, balanceTv, categoryTV, messageTV, setBalanceTv, balanceTV;
-    double income = 0, expense = 0, balance = 0;
+    int income = 0, expense = 0, balance = 0;
     Dialog dialog;
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String AMOUNT_KEY = "amount_key";
 
     SharedPreferences sharedpreferences;
-    String setAmount;
+    int setAmount;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,11 +83,12 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         loadingPB = root.findViewById(R.id.idPBLoading);
         db = FirebaseFirestore.getInstance();
         sharedpreferences = getContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        setAmount = sharedpreferences.getString(AMOUNT_KEY, null);
+        setAmount = sharedpreferences.getInt(AMOUNT_KEY, 0);
 
         categoryModels = new ArrayList<>();
         messageTV = root.findViewById(R.id.idTVMessage);
         balanceCV = root.findViewById(R.id.idCVBalance);
+//        categoryTV=root.findViewById(R.id.idTVBalance);
         expenseCV = root.findViewById(R.id.idCVExpense);
         incomeCV = root.findViewById(R.id.idCVIncome);
         setBalanceTv = root.findViewById(R.id.setBalance);
@@ -91,7 +99,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         homeScreenListData = new ArrayList<>();
 
 
-        if (setAmount != null) {
+        if (setAmount != 0) {
             balanceTV.setText("₹ " + setAmount);
         }
         Button button = root.findViewById(R.id.addTransaction);
@@ -142,17 +150,19 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                 dialog.setContentView(layout);
                 EditText setLimitEditText = layout.findViewById(R.id.setLimitET);
                 Button setLimitBtn = layout.findViewById(R.id.idBtnSetLimit);
+//                int daata= Integer.parseInt(setLimitEditText.getText().toString());
                 setLimitBtn.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View v) {
-                        if (TextUtils.isEmpty(setLimitEditText.getText().toString())) {
+                        if (Integer.parseInt(setLimitEditText.getText().toString())==0) {
                             Toast.makeText(getContext(), "Please Enter Amount", Toast.LENGTH_SHORT).show();
                         } else {
                             SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString(AMOUNT_KEY, setLimitEditText.getText().toString());
+                            editor.putInt(AMOUNT_KEY, Integer.parseInt(setLimitEditText.getText().toString()));
                             editor.apply();
                             dialog.dismiss();
-                            balanceTV.setText("₹ " + sharedpreferences.getString(AMOUNT_KEY, null));
+                            balanceTV.setText("₹ " + sharedpreferences.getInt(AMOUNT_KEY, 0));
                         }
                     }
                 });
@@ -164,6 +174,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     }
 
     private void readData() {
+
         loadingPB.setVisibility(View.VISIBLE);
         db.collection("ExpenseManager").document("userId").collection("userTranscation").orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -174,6 +185,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                     for (DocumentSnapshot d : list) {
                         Data c = d.toObject(Data.class);
                         // created for recycler view
+                        c.setDocId(d.getId());
                         homeScreenListData.add(c);
                         homeScreenListAdapter.notifyDataSetChanged();
                     }
@@ -201,17 +213,30 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                     }
 
                     if (homeScreenListData.get(i).getParentCategory().equals("Income")) {
-                        income = income + Double.parseDouble(c.getAmount());
+                        income = income + Integer.parseInt(c.getAmount());
                     } else {
-                        expense = expense + Double.parseDouble(c.getAmount());
+                        expense = expense + Integer.parseInt(c.getAmount());
                     }
-                    // double prevBal = balance;
                     balance = income - expense;
-                    //if (prevBal == 0) {
                     balanceTv.setText("₹ " + balance);
                     incomeTv.setText("₹ " + income);
                     expenseTv.setText("₹ " + expense);
-                    //}
+                    if (balance == setAmount) {
+                        AlertDialog dialog=new AlertDialog.Builder(getActivity()).setTitle("Message").setMessage("Your balance is="+balance)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).create();
+                        dialog.show();
+
+
+                    }
+
+
+
+
 
 
                 }
@@ -391,6 +416,8 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         String amount = homeScreenListData.get(position).getAmount();
         String category = homeScreenListData.get(position).getCategory();
         int imgId = homeScreenListData.get(position).getImgid();
+        String docId = homeScreenListData.get(position).getDocId();
+        String parent=homeScreenListData.get(position).getParentCategory();
 
         final BottomSheetDialog bottomSheetTeachersDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_update, bottomSheetLL);
@@ -437,8 +464,27 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //update data here
-                bottomSheetTeachersDialog.dismiss();
+                String date=dateTV.getText().toString();
+                String amount=amountEdt.getText().toString();
+                String cat=categoryTV.getText().toString();
+                if(TextUtils.isEmpty(date))
+                {
+                    dateTV.setError("enter date");
+                }
+                else if(TextUtils.isEmpty(amount))
+                {
+                    amountEdt.setError("enter amount");
+                }
+                else if (TextUtils.isEmpty(cat))
+                {
+                    categoryTV.setError("enter category");
+                }
+                else {
+                    //update data here
+
+                    update(docId,amount,date,cat,parent);
+                    bottomSheetTeachersDialog.dismiss();
+                }
             }
         });
 
@@ -446,6 +492,8 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
             @Override
             public void onClick(View v) {
                 //delete data here
+                delete(docId);
+
                 bottomSheetTeachersDialog.dismiss();
 
             }
@@ -468,6 +516,40 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
 
             }
         });
+    }
+
+    private void delete(String docId) {
+        db.collection("ExpenseManager").document("userId").collection("userTranscation").document(docId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                    Toast.makeText(getContext(),"deleted",Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(getContext(),"failure to deleted",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+    private void update(String docId,String amount,String date,String category,String parent) {
+        Data user=new Data(amount,date,category,parent);
+        db.collection("ExpenseManager").document("userId").collection("userTranscation").document(docId).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getContext(), "Course has been updated..", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(getContext(), "Fail to update the data..", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
 
