@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -40,6 +43,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseUser currentuser;
+    FirebaseAuth auth;
+
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -52,8 +58,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        auth=FirebaseAuth.getInstance();
+        currentuser=auth.getCurrentUser();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        updatedata();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -63,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
 
             navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
                 @Override
@@ -82,24 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     
     }
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
-//
-//        switch (item.getItemId())
-//        {
-//            case R.id.nav_signout:
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(getApplicationContext(),login.class));
-//                finish();
-//                break;
-//
-//            case R.id.nav_setting:
-//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//        }
-//        return super.onOptionsItemSelected(item);
-//
-//
-//    }
+
 
 
     private void requestPermission(){
@@ -187,6 +181,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void updatedata()
+    {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View header=navigationView.getHeaderView(0);
+//        TextView username=header.findViewById(R.id.nav_username);
+        TextView email=header.findViewById(R.id.nav_email);
+
+//        username.setText(currentuser.getDisplayName());
+        email.setText(currentuser.getEmail());
     }
 
 

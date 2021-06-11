@@ -92,7 +92,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginRight="-5dp"
         android:gravity="center_horizontal"
-        android:text="Already Register?Login Here"
+        android:text="New Account?Register"
         android:textSize="15sp"
         android:textStyle="bold" />
 
