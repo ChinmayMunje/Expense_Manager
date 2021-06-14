@@ -7,7 +7,15 @@ public class Data {
     private String category;
     private String parentCategory;
     private int imgid;
+    private String docId;
 
+
+    public String getDocId() {
+        return docId;
+    }
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
 
     public int getImgid() {
         return imgid;
