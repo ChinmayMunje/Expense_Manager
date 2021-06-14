@@ -15,6 +15,7 @@ public  static  int SPLASH_TIME_OUT=3000;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getSupportActionBar().hide();
         Uri uri=getIntent().getData();
         if (uri!=null)
         {

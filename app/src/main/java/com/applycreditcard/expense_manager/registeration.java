@@ -29,6 +29,7 @@ public class registeration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registeration);
+        getSupportActionBar().hide();
         c1=(CardView)findViewById(R.id.firstbuttons);
         e1=(EditText)findViewById(R.id.editTextTextPersonName);
         e2=(EditText)findViewById(R.id.editTextmail);
