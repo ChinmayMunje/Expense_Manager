@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5E6DBD"
+
     tools:context=".registeration">
     <TextView
         android:layout_width="match_parent"
@@ -72,8 +72,7 @@
         android:layout_below="@id/editTextTextPassword"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="#467AE1"
-
+        app:cardBackgroundColor="@color/purple_200"
         app:cardCornerRadius="25dp"
         app:cardElevation="10dp">
 
