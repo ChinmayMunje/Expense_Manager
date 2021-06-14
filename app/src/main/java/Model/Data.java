@@ -1,7 +1,5 @@
 package Model;
 
-import com.google.firebase.database.Exclude;
-
 public class Data {
 
     private String amount;
@@ -9,13 +7,12 @@ public class Data {
     private String category;
     private String parentCategory;
     private int imgid;
-    @Exclude
     private String docId;
+
 
     public String getDocId() {
         return docId;
     }
-
     public void setDocId(String docId) {
         this.docId = docId;
     }
@@ -65,7 +62,7 @@ public class Data {
     }
 
 
-    public Data(String amount, String date, String category,String parentCategory) {
+    public Data(String amount, String date, String category, String parentCategory) {
         this.amount = amount;
         this.date = date;
         this.category = category;

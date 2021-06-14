@@ -184,7 +184,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-        android:text="Text"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold" />
