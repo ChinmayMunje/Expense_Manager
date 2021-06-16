@@ -9,15 +9,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/accounting"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/accounting"
         android:supportsRtl="true"
         android:theme="@style/Theme.Expense_Manager">
-<!--        <activity android:name=".MainActivity" />-->
-        <activity android:name=".login" android:theme="@style/Theme.Design.NoActionBar"/>
-        <activity android:name=".registeration" android:theme="@style/Theme.Design.NoActionBar"/>
-        <activity android:name=".splash" android:theme="@style/Theme.Design.NoActionBar">
+        <!--        <activity android:name=".MainActivity" />-->
+        <activity
+            android:name=".login"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".registeration"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".splash"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

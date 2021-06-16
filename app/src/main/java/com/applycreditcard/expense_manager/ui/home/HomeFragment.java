@@ -3,6 +3,7 @@ package com.applycreditcard.expense_manager.ui.home;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -368,22 +370,23 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
             @Override
             public void onClick(View v) {
 
-//                if (balance <= setAmount) {
-//                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Message").setMessage("Your are spending more than your set Limit=" + balance)
-//                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    dialog.dismiss();
-//                                }
-//                            }).create();
-//                    dialog.show();
-//
-//
-//                } else {
-                amount = amountEdt.getText().toString();
-                date = dateTV.getText().toString();
-                category = categoryTV.getText().toString();
-                addData(amount, date, category, bottomSheetTeachersDialog);
+                if (balance == setAmount) {
+                    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Message").setMessage("Your are spending more than your set Limit !!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+
+
+                } else {
+                    amount = amountEdt.getText().toString();
+                    date = dateTV.getText().toString();
+                    category = categoryTV.getText().toString();
+                    addData(amount, date, category, bottomSheetTeachersDialog);
+                }
             }
         });
         dateTV.setOnClickListener(new View.OnClickListener() {
