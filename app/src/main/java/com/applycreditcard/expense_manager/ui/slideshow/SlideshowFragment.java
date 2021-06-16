@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.applycreditcard.expense_manager.R;
-import com.applycreditcard.expense_manager.SMSAdapter;
+import Adapter.SMSAdapter;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

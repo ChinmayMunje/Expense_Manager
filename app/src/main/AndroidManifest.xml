@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Expense_Manager">
 <!--        <activity android:name=".MainActivity" />-->
-        <activity android:name=".login" />
-        <activity android:name=".registeration" />
-        <activity android:name=".splash">
+        <activity android:name=".login" android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity android:name=".registeration" android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity android:name=".splash" android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

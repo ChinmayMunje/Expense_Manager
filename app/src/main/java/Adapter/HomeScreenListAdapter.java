@@ -1,4 +1,4 @@
-package com.applycreditcard.expense_manager;
+package Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.applycreditcard.expense_manager.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

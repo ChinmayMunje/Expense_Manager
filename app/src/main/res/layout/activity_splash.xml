@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".splash">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WELCOME TO EXPENSE MANAGER"
+        android:text="Expense Manager"
         android:textSize="30dp"
         android:gravity="center"
         android:layout_marginTop="190dp"/>

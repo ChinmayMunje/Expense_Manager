@@ -7,6 +7,7 @@
 
     tools:context=".registeration">
     <TextView
+        android:id="@+id/registerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
@@ -14,28 +15,15 @@
         android:gravity="center"
         android:layout_marginTop="90dp"/>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:layout_marginTop="200dp"
-        android:textSize="20dp"
-        android:textColor="#fff"
-        android:hint="username"
-        android:drawableLeft="@drawable/ic_baseline_account_user"
-        android:background="#11000000"
-        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editTextmail"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/editTextTextPersonName"
+        android:layout_below="@+id/registerText"
         android:layout_alignLeft="@id/editTextTextPassword"
         android:layout_alignRight="@id/editTextTextPassword"
-        android:layout_marginLeft="0dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="32dp"
         android:layout_marginRight="1dp"
         android:background="#11000000"
@@ -47,29 +35,31 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editTextPassword"
         android:layout_width="300dp"
         android:layout_height="40dp"
-
         android:layout_below="@+id/editTextmail"
-        android:layout_alignLeft="@+id/editTextTextPersonName"
-        android:layout_alignRight="@+id/editTextTextPersonName"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginRight="-3dp"
+        android:layout_alignLeft="@id/editTextTextPassword"
+        android:layout_alignRight="@id/editTextTextPassword"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="1dp"
         android:background="#11000000"
-        android:drawableLeft="@drawable/ic_baseline_lock"
+        android:drawableLeft="@drawable/ic_baseline_email"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
         android:textColor="#fff"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        tools:ignore="UnknownId" />
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/firstbuttons"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/editTextTextPassword"
+        android:layout_below="@id/editTextPassword"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/purple_200"
@@ -104,7 +94,8 @@
         android:gravity="center_horizontal"
         android:text="Already Register?Login Here"
         android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="UnknownId" />
 
 
 </RelativeLayout>
