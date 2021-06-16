@@ -3,7 +3,6 @@ package com.applycreditcard.expense_manager.ui.home;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,18 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.applycreditcard.expense_manager.HomeScreenListAdapter;
 import com.applycreditcard.expense_manager.R;
-import com.applycreditcard.expense_manager.ui.CategoryListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,8 +44,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Adapter.CategoryListAdapter;
+import Adapter.HomeScreenListAdapter;
 import Model.CategoryModel;
 import Model.Data;
+
 
 public class HomeFragment extends Fragment implements CategoryListAdapter.OnclickInterface, HomeScreenListAdapter.OnclickInterface {
     //    final Context context = this;
@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     Dialog dialog;
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String AMOUNT_KEY = "amt";
+    private FirebaseAuth mAuth;
 
     SharedPreferences sharedpreferences;
     int setAmount;
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         sharedpreferences = getContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
         setAmount = sharedpreferences.getInt(AMOUNT_KEY, 0);
-
+        mAuth = FirebaseAuth.getInstance();
         categoryModels = new ArrayList<>();
         messageTV = root.findViewById(R.id.idTVMessage);
         balanceCV = root.findViewById(R.id.idCVBalance);
@@ -170,7 +171,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
 
     private void readData() {
         loadingPB.setVisibility(View.VISIBLE);
-        db.collection("ExpenseManager").document("userId").collection("userTranscation").orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("ExpenseManager").document(mAuth.getCurrentUser().getUid()).collection("userTranscation").orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 loadingPB.setVisibility(View.GONE);
@@ -235,7 +236,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     private void readFilteredData(String filter) {
 
         loadingPB.setVisibility(View.VISIBLE);
-        db.collection("ExpenseManager").document("userId").collection("userTranscation").whereEqualTo("parentCategory", filter).orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("ExpenseManager").document(mAuth.getCurrentUser().getUid()).collection("userTranscation").whereEqualTo("parentCategory", filter).orderBy("timestamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 loadingPB.setVisibility(View.GONE);
@@ -284,7 +285,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
 
 
     private void addData(String amount, String date, String category, BottomSheetDialog bottomSheetDialog) {
-        CollectionReference collectionReference = db.collection("ExpenseManager").document("userId").collection("userTranscation");
+        CollectionReference collectionReference = db.collection("ExpenseManager").document(mAuth.getCurrentUser().getUid()).collection("userTranscation");
         String parentCat = "";
         if (category == "Salary") {
             parentCat = "Income";
@@ -379,10 +380,10 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
 //
 //
 //                } else {
-                    amount = amountEdt.getText().toString();
-                    date = dateTV.getText().toString();
-                    category = categoryTV.getText().toString();
-                    addData(amount, date, category, bottomSheetTeachersDialog);
+                amount = amountEdt.getText().toString();
+                date = dateTV.getText().toString();
+                category = categoryTV.getText().toString();
+                addData(amount, date, category, bottomSheetTeachersDialog);
             }
         });
         dateTV.setOnClickListener(new View.OnClickListener() {
@@ -409,6 +410,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     private void displayUpdateBottomSheet(int position) {
         String date = homeScreenListData.get(position).getDate();
         String amount = homeScreenListData.get(position).getAmount();
+        String parentCategory = homeScreenListData.get(position).getParentCategory();
         String category = homeScreenListData.get(position).getCategory();
         int imgId = homeScreenListData.get(position).getImgid();
         String docId = homeScreenListData.get(position).getDocId();
@@ -460,8 +462,11 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
             @Override
             public void onClick(View v) {
                 //update data here
+                updatedata(amount, date, category, parentCategory, docId);
                 bottomSheetTeachersDialog.dismiss();
+                readData();
             }
+
         });
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -498,7 +503,7 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
     private void delete(String docId) {
         homeScreenListData.clear();
         readData();
-        db.collection("ExpenseManager").document("userId").collection("userTranscation").document(docId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("ExpenseManager").document(mAuth.getCurrentUser().getUid()).collection("userTranscation").document(docId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
@@ -509,8 +514,6 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
                 Toast.makeText(getContext(), "failure to deleted", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override
@@ -521,6 +524,21 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Onclic
         Drawable drawable = getResources().getDrawable(categoryModels.get(position).getImageUrl());
         categoryTV.setCompoundDrawables(getResources().getDrawable(R.drawable.ic_clothing), null, null, null);
         dialog.dismiss();
+    }
+
+    private void updatedata(String amount, String date, String category, String parentCategory, String docId) {
+        Data updateData = new Data(amount, date, category, parentCategory);
+        db.collection("ExpenseManager").document(mAuth.getCurrentUser().getUid()).collection("userTranscation").document(docId).set(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "Data has been updated..", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Fail to update the data..", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

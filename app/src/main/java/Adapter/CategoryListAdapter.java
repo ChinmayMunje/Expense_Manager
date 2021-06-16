@@ -1,4 +1,4 @@
-package com.applycreditcard.expense_manager.ui;
+package Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

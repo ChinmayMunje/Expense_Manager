@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.applycreditcard.expense_manager.R;
-import com.applycreditcard.expense_manager.ui.CategoryListAdapter;
+import Adapter.CategoryListAdapter;
 
 import java.util.ArrayList;
 

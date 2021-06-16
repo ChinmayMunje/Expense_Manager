@@ -43,4 +43,14 @@
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_drawable</item>
     </style>
+
+    <style name="Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
 </resources>
