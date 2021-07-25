@@ -31,7 +31,7 @@ public class registeration extends AppCompatActivity {
         setContentView(R.layout.activity_registeration);
         c1=(CardView)findViewById(R.id.firstbuttons);
         e2=(EditText)findViewById(R.id.editTextmail);
-        e3=(EditText)findViewById(R.id.editTextPassword);
+        e3=(EditText)findViewById(R.id.editTextPasswords);
         t1=(TextView)findViewById(R.id.login25);
         firebaseAuth=FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser()!=null)
@@ -57,26 +57,27 @@ public class registeration extends AppCompatActivity {
 //                {
 //                    e1.setError("enter valid name");
 //                }
-                else if(pass.length()<=6)
-                {
-                    e3.setError("enter at least 6 character");
+                else if(pass.length()<=6) {
+                    //                    e3.setError("enter at least 6 character");
                     if (e3.getText().toString().matches("[a-z,A-Z,0-9]"))
-                   e3.setError("enter valid password");
-                }
-                firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(registeration.this,"user created",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        }
-                        else {
-                            Toast.makeText(registeration.this,"error"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-
+                    {
+                        e3.setError("enter valid password");
                     }
-                });
+                }
+                else {
+                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(registeration.this, "user created", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            } else {
+                                Toast.makeText(registeration.this, "error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+                }
 
             }
         });

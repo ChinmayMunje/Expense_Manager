@@ -23,7 +23,7 @@
         android:layout_alignLeft="@id/editTextTextPasswords1"
         android:layout_alignRight="@id/editTextTextPasswords1"
         android:layout_marginTop="200dp"
-
+        android:layout_centerHorizontal="true"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_baseline_email"
         android:ems="10"
@@ -36,6 +36,7 @@
         android:id="@+id/editTextTextPasswords1"
         android:layout_width="300dp"
         android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/editTextmails"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
